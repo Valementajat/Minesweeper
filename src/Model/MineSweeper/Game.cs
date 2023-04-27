@@ -1,6 +1,7 @@
 ﻿using Model.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Model.MineSweeper
 {
@@ -175,6 +176,7 @@ namespace Model.MineSweeper
 
         public override IGame UncoverSquare( Vector2D position )
         {
+            
             if ( !IsSquareCovered( position ) )
             {
                 throw new InvalidOperationException( "Square already uncovered" );
