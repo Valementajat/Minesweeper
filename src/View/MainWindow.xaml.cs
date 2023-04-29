@@ -45,7 +45,6 @@ namespace view
             
 
             var board = game.Board;
-            Debug.WriteLine(game.Board.ToString());
 
             var board1 = Rows(board);
 
@@ -67,7 +66,6 @@ namespace view
                     var postition = new Vector2D(i, row);
                     var value = board[postition];
                     RowList.Add(value);
-                    Debug.WriteLine(RowList[i]);
                 }
             
                 return RowList;

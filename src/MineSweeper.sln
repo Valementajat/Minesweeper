@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cells", "Cells\Cells.csproj", "{1DB3365C-C4AF-4AA9-8AD2-F93EC72BC5F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "viewModel", "viewModel\viewModel.csproj", "{68EF1E3F-7AA4-48FB-8567-76E972A6DF28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "viewModel", "viewModel\viewModel.csproj", "{68EF1E3F-7AA4-48FB-8567-76E972A6DF28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "View", "View\View.csproj", "{63030855-78FE-422C-A5DB-4B09F9FF4DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "View", "View\View.csproj", "{63030855-78FE-422C-A5DB-4B09F9FF4DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

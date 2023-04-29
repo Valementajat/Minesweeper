@@ -4,8 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:view"
+        xmlns:converters="clr-namespace:View.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+    <Window.Resources>
+        <converters:SquareStatusConverter x:Key="squareStatusToEllipseFill" 
+                                          Uncovered="Transparent"
+                                          Covered="Transparent"
+                                          Mine="Black"
+                                          Flagged="Orange"
+                                          />
+        <converters:SquareStatusVisibilityConverter x:Key="squareStatusVisibility" />
+
+
+    </Window.Resources>
     <Grid>
 
         <ItemsControl x:Name="boardView" ItemsSource="{Binding}" >
@@ -14,7 +27,14 @@
                     <ItemsControl  ItemsSource="{Binding}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Content="{Binding}" Width="32" Height="32" />
+                                <Button  Width="32" Height="32" >
+                                    <Button.Content>
+                                        <Grid>
+                                            <Ellipse Width="20" Height="20" Fill="{Binding Status, Converter={StaticResource squareStatusToEllipseFill}}"/>
+                                            <TextBlock Text="{Binding NeighboringMineCount}" Visibility="{Binding Status, Converter={StaticResource squareStatusVisibility}}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Button.Content>
+                                </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>
