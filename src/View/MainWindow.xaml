@@ -21,7 +21,7 @@
     </Window.Resources>
     <Grid>
 
-        <ItemsControl x:Name="boardView" ItemsSource="{Binding}" >
+        <ItemsControl ItemsSource="{Binding Board.Rows}" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <ItemsControl  ItemsSource="{Binding}">
