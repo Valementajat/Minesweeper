@@ -16,27 +16,30 @@ namespace viewModel
         public GameBoardViewModel(IGameBoard Board)
         {
             this.Board = Board;
+            Debug.WriteLine( "töis mutten duunis");
 
         }
 
-        public IEnumerable<IEnumerable<Square>> Rows
+        public IEnumerable<RowViewModel> Rows
         {
             get
             {
-
                 int Height = Board.Height;
-                Debug.WriteLine(Height, "töis mutten duunis");
-                List<List<Square>> RowsList = new() { };
+                List<RowViewModel> RowsList = new();
 
                 for (int i = 0; i < Height; i++)
                 {
-                    var RowList = new List<Square>();
-                    RowList.AddRange(Row(Board, i));
-                    RowsList.Add(RowList);
+                    var rowViewModel = new RowViewModel
+                    {
+                        Squares = Row(Board, i)
+
+                    };
+                    RowsList.Add(rowViewModel);
                 }
                 return RowsList;
             }
         }
+
 
         IEnumerable<Square> Row(IGameBoard board, int row)
         {
