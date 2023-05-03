@@ -1,4 +1,5 @@
-﻿using Model.MineSweeper;
+﻿using Model.Data;
+using Model.MineSweeper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,13 +11,16 @@ namespace viewModel
 {
     public class RowViewModel
     {
-        public IEnumerable<SquareViewModel> Squares { get ; set; }
-        private readonly IGame Board;
-        public RowViewModel(IEnumerable<SquareViewModel> Squares, IGame Board)
+        public IEnumerable<SquareViewModel> Squares { get; }
+        
+        public RowViewModel(IEnumerable<SquareViewModel> Squares, IGame Board, int rowIndex)
         {
+           
             this.Squares = Squares;
-            new SquareViewModel { Board = Board };
+          
+          
         }
 
     }
 }
+

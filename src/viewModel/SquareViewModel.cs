@@ -1,4 +1,5 @@
-﻿using Model.MineSweeper;
+﻿using Model.Data;
+using Model.MineSweeper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,11 +15,12 @@ namespace viewModel
         public Square Square { get; set; }
         public ICommand Uncover { get; }
 
-        public IGame Board;
-        public SquareViewModel()
-        {
+       
 
-            Uncover = new UncoverSquareCommand( Board);
+        public SquareViewModel(IGame Board, Vector2D position)
+        {
+            
+            this.Uncover = new UncoverSquareCommand(Board, position);
         }
     }
 }

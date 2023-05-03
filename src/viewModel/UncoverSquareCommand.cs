@@ -1,4 +1,5 @@
-﻿using Model.MineSweeper;
+﻿using Model.Data;
+using Model.MineSweeper;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,9 +15,10 @@ namespace viewModel
     {
         public event EventHandler CanExecuteChanged;
         public IGame Board;
-
-        public UncoverSquareCommand(IGame Board)
+        public Vector2D Position;
+        public UncoverSquareCommand(IGame Board, Vector2D position)
         {
+            this.Position = position;
             this.Board = Board;
         }
         public bool CanExecute(object parameter)
@@ -26,7 +28,7 @@ namespace viewModel
 
         public void Execute(object parameter)
         {
-            Debug.WriteLine("You clicked me");
+            Debug.WriteLine(Position);
         }
     }
 }
