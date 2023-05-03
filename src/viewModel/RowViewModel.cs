@@ -13,7 +13,7 @@ namespace viewModel
     {
         public IEnumerable<SquareViewModel> Squares { get; }
         
-        public RowViewModel(IEnumerable<SquareViewModel> Squares, IGame Board, int rowIndex)
+        public RowViewModel(IEnumerable<SquareViewModel> Squares)
         {
            
             this.Squares = Squares;

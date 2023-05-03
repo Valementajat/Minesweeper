@@ -19,7 +19,7 @@ namespace viewModel
 
         public SquareViewModel(IGame Board, Vector2D position)
         {
-            
+            this.Square = Board.Board[position];
             this.Uncover = new UncoverSquareCommand(Board, position);
         }
     }

@@ -27,7 +27,7 @@ namespace viewModel
 
             for (int i = 0; i < Height; i++)
             {
-                RowViewModel rowViewModel = new(Row(GameBoard,Board, i), Board, i);
+                RowViewModel rowViewModel = new(Row(GameBoard,Board, i));
 
                 RowsList.Add(rowViewModel);
             }
@@ -47,7 +47,7 @@ namespace viewModel
                 var position = new Vector2D(i, row);
                 
                 var value = board[position];
-                RowList.Add(new SquareViewModel(Board, position) { Square = value });
+                RowList.Add(new SquareViewModel(Board, position));
             }
 
             return RowList;
