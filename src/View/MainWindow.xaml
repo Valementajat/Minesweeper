@@ -27,7 +27,7 @@
                     <ItemsControl  ItemsSource="{Binding Squares}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button  Width="32" Height="32" >
+                                <Button  Width="32" Height="32" Command="{Binding Path=Uncover}" >
                                     <Button.Content>
                                         <Grid>
                                             <Ellipse Width="20" Height="20" Fill="{Binding Square.Status, Converter={StaticResource squareStatusToEllipseFill}}"/>

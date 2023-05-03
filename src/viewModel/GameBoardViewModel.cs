@@ -11,23 +11,28 @@ namespace viewModel
 {
     public class GameBoardViewModel
     {
-        private readonly IGameBoard Board;
+        private readonly IGameBoard GameBoard;
+        private readonly IGame Board;
 
-        public GameBoardViewModel(IGameBoard Board)
+        public GameBoardViewModel(IGame Board)
         {
+
+            this.GameBoard = Board.Board;
+
             this.Board = Board;
+
         }
 
         public IEnumerable<RowViewModel> Rows
         {
             get
             {
-                int Height = Board.Height;
+                int Height = GameBoard.Height;
                 List<RowViewModel> RowsList = new();
 
                 for (int i = 0; i < Height; i++)
                 {
-                    var rowViewModel = new RowViewModel(Row(Board, i));
+                    var rowViewModel = new RowViewModel(Row(GameBoard, i), Board);
                   
                     RowsList.Add(rowViewModel);
                 }
@@ -45,7 +50,7 @@ namespace viewModel
             {
                 var postition = new Vector2D(i, row);
                 var value = board[postition];
-                RowList.Add(new SquareViewModel { Square = value });
+                RowList.Add(new SquareViewModel { Square = value, Board = Board });
             }
 
             return RowList;

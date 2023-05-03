@@ -11,11 +11,11 @@ namespace viewModel
     public class RowViewModel
     {
         public IEnumerable<SquareViewModel> Squares { get ; set; }
-
-        public RowViewModel(IEnumerable<SquareViewModel> Squares)
+        private readonly IGame Board;
+        public RowViewModel(IEnumerable<SquareViewModel> Squares, IGame Board)
         {
             this.Squares = Squares;
-
+            new SquareViewModel { Board = Board };
         }
 
     }
