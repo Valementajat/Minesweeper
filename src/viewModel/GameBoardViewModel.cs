@@ -15,10 +15,10 @@ namespace viewModel
        
         public IEnumerable<RowViewModel> Rows { get; }
 
-        public GameBoardViewModel(IGame Board)
+        public GameBoardViewModel(IGame game)
         {
 
-            this.GameBoard = Board.Board;
+            this.GameBoard = game.Board;
 
 
             // Rows 
@@ -27,7 +27,7 @@ namespace viewModel
 
             for (int i = 0; i < Height; i++)
             {
-                RowViewModel rowViewModel = new(Row(GameBoard,Board, i));
+                RowViewModel rowViewModel = new(Row(GameBoard, game, i));
 
                 RowsList.Add(rowViewModel);
             }
@@ -37,7 +37,7 @@ namespace viewModel
         }
 
 
-        IEnumerable<SquareViewModel> Row(IGameBoard board, IGame Board, int row)
+        IEnumerable<SquareViewModel> Row(IGameBoard board, IGame game, int row)
         {
             int width = board.Width;
             var RowList = new List<SquareViewModel>(width);
@@ -45,9 +45,7 @@ namespace viewModel
             for (int i = 0; i < width; i++)
             {
                 var position = new Vector2D(i, row);
-                
-                var value = board[position];
-                RowList.Add(new SquareViewModel(Board, position));
+                RowList.Add(new SquareViewModel(game, position));
             }
 
             return RowList;

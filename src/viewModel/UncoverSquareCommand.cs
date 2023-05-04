@@ -14,12 +14,12 @@ namespace viewModel
     class UncoverSquareCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        public IGame Board;
+        public IGame game;
         public Vector2D Position;
-        public UncoverSquareCommand(IGame Board, Vector2D position)
+        public UncoverSquareCommand(IGame game, Vector2D position)
         {
             this.Position = position;
-            this.Board = Board;
+            this.game = game;
         }
         public bool CanExecute(object parameter)
         {
