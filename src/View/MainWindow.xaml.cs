@@ -28,18 +28,15 @@ namespace view
         {
             InitializeComponent();
 
-            //var game = IGame.CreateRandom(10, 0.1);
-            var game = IGame.Parse(new List<string> {
+            var game = IGame.CreateRandom(10, 0.1);
+            /*var game = IGame.Parse(new List<string> {
               "...*.",
               ".*.*.",
               ".....",
               "...*.",
               "**...",
-            });
-            game = game.UncoverSquare(new Vector2D(2, 1));
-            game = game.ToggleFlag(new Vector2D(0, 0));
-            game = game.UncoverSquare(new Vector2D(3, 0));
-
+            });*/
+          
             var GameViewModel = new GameViewModel(game);
 
             this.DataContext = GameViewModel;

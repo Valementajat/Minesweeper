@@ -1,4 +1,5 @@
-﻿using Model.Data;
+﻿using Cells;
+using Model.Data;
 using Model.MineSweeper;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace viewModel
     class UncoverSquareCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        public IGame game;
+        public ICell<IGame> game;
         public Vector2D Position;
-        public UncoverSquareCommand(IGame game, Vector2D position)
+        public UncoverSquareCommand(ICell<IGame> game, Vector2D position)
         {
             this.Position = position;
             this.game = game;
@@ -28,7 +29,23 @@ namespace viewModel
 
         public void Execute(object parameter)
         {
-            Debug.WriteLine(Position);
+            var Square = game.Derive(g => g.Board[Position]).Value;
+            var squareStatus = Square.Status;
+            
+            var gameStatus = game.Derive(g => g.Status).Value;
+
+            if (gameStatus == GameStatus.InProgress) { 
+                if (squareStatus == SquareStatus.Uncovered)
+                {
+                    return;
+                } else
+                {
+                    game.Value = game.Value.UncoverSquare(Position);
+                }
+            } else
+            {
+                return;
+            }
         }
     }
 }

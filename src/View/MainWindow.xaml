@@ -30,8 +30,8 @@
                                 <Button  Width="32" Height="32" Command="{Binding Path=Uncover}" >
                                     <Button.Content>
                                         <Grid>
-                                            <Ellipse Width="20" Height="20" Fill="{Binding Square.Status, Converter={StaticResource squareStatusToEllipseFill}}"/>
-                                            <TextBlock Text="{Binding Square.NeighboringMineCount}" Visibility="{Binding Square.Status, Converter={StaticResource squareStatusVisibility}}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Ellipse Width="20" Height="20" Fill="{Binding Square.Value.Status, Converter={StaticResource squareStatusToEllipseFill}}"/>
+                                            <TextBlock Text="{Binding Square.Value.NeighboringMineCount}" Visibility="{Binding Square.Value.Status, Converter={StaticResource squareStatusVisibility}}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                         </Grid>
                                     </Button.Content>
                                 </Button>

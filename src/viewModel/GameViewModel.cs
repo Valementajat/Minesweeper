@@ -1,4 +1,5 @@
-﻿using Model.Data;
+﻿using Cells;
+using Model.Data;
 using Model.MineSweeper;
 using System;
 using System.Collections.Generic;
@@ -13,8 +14,9 @@ namespace viewModel
 
         public GameViewModel(IGame game)
         {
-           
-            this.Board = new GameBoardViewModel(game);
+            ICell<IGame> currentGame = Cell.Create(game);
+
+            this.Board = new GameBoardViewModel(currentGame);
         }
 
        
