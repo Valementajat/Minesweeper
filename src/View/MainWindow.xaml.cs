@@ -41,18 +41,28 @@ namespace view
 
             this.DataContext = GameViewModel;
 
-
-
-
-
-
-
-            
-
-           
         }
 
-       
+        
+
+        private void NewGame_Click(object sender, RoutedEventArgs e)
+        {
+           
+            InitializeComponent();
+
+            var game = IGame.CreateRandom(10, 0.1);
+            /*var game = IGame.Parse(new List<string> {
+              "...*.",
+              ".*.*.",
+              ".....",
+              "...*.",
+              "**...",
+            });*/
+
+            var GameViewModel = new GameViewModel(game);
+
+            this.DataContext = GameViewModel;
+        }
     }
 
 }

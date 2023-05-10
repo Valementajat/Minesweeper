@@ -16,14 +16,18 @@ namespace viewModel
         public ICell<Square> Square { get; set; }
         public ICommand Uncover { get; }
 
-       
+        public ICommand Flag { get; }
+
+
 
         public SquareViewModel(ICell<IGame> game, Vector2D position)
         {
             this.Square = game.Derive(g => g.Board[position]);
           
             this.Uncover = new UncoverSquareCommand(game, position);
-            
+
+            this.Flag = new FlagSquareCommand(game, position);
+
         }
     }
 }

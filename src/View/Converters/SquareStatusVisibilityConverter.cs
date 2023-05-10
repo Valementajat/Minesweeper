@@ -16,21 +16,23 @@ namespace View.Converters
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            SquareStatus status = (SquareStatus)value;
-
-            switch (status)
+            
+            var statuss = (Square)value;
+            SquareStatus status = statuss.Status;
+            var MC = statuss.NeighboringMineCount;
+           
+            return status switch
             {
-                case SquareStatus.Flagged:
-                    return "Hidden";
-                case SquareStatus.Covered:
-                    return "Hidden";
-                case SquareStatus.Mine:
-                    return "Hidden";
-                case SquareStatus.Uncovered:
-                    return "Visible";
-                default:
-                    throw new ArgumentException("Invalid SquareStatus value", "value");
-            }
+                SquareStatus.Flagged => "Hidden",
+                SquareStatus.Covered => "Hidden",
+                SquareStatus.Mine => "Hidden",
+                SquareStatus.Uncovered => MC switch
+                {
+                    0 => "Hidden",
+                    _ => "Visible",
+                },
+                _ => throw new ArgumentException("Invalid SquareStatus value", "value"),
+            };
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
