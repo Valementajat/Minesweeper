@@ -15,8 +15,9 @@ namespace viewModel
     class UncoverSquareCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        public ICell<IGame> game;
+        public ICell<IGame> game { get; }
         public Vector2D Position;
+
         public UncoverSquareCommand(ICell<IGame> game, Vector2D position)
         {
             this.Position = position;
@@ -32,9 +33,10 @@ namespace viewModel
            
 
             var Square = game.Derive(g => g.Board[Position]).Value;
-
             var squareStatus = Square.Status;
-            
+
+            int Height = game.Derive(g => g.Board.Height).Value;
+
             var gameStatus = game.Derive(g => g.Status).Value;
 
             if (gameStatus == GameStatus.InProgress) { 
@@ -44,8 +46,9 @@ namespace viewModel
                 } else
                 {
                     game.Value = game.Value.UncoverSquare(Position);
+             
                 }
-            } else
+            } else 
             {
                 return;
             }

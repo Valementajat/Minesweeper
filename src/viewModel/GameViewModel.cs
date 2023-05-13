@@ -11,10 +11,13 @@ namespace viewModel
     {
         
         public GameBoardViewModel Board { get; }
+        
 
         public GameViewModel(IGame game)
         {
+            
             ICell<IGame> currentGame = Cell.Create(game);
+            
 
             this.Board = new GameBoardViewModel(currentGame);
         }

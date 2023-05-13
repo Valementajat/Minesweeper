@@ -189,6 +189,16 @@ namespace Model.MineSweeper
 
             if ( square.ContainsMine )
             {
+                int height = nextBoard.Height;
+                for (int i = 0; i < height; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        var squarePosition = new Vector2D(i, j);
+                        square = nextBoard[squarePosition];
+                        square.Uncover();
+                    }
+                }
                 return new LostGame( nextBoard );
             }
 
@@ -199,6 +209,16 @@ namespace Model.MineSweeper
 
             if ( nextBoard.AreAllMineFreeSquaresUncovered )
             {
+                int height = nextBoard.Height;
+                for (int i = 0; i < height; i++)
+                {
+                    for (int j = 0; j < height; j++)
+                    {
+                        var squarePosition = new Vector2D(i, j);
+                        square = nextBoard[squarePosition];
+                        square.Uncover();
+                    }
+                }
                 return new WonGame( nextBoard );
             }
             else

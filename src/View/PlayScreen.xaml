@@ -1,0 +1,83 @@
+﻿<Page x:Class="View.Page1"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:View"
+      xmlns:converters="clr-namespace:View.Converters"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page1">
+
+    <Page.Resources>
+        <converters:SquareStatusConverter x:Key="squareStatusToEllipseFill" 
+                                          Uncovered="#A0A0A0"
+                                          Covered="Transparent"
+                                          Mine="Transparent"
+                                          Flagged="Transparent"
+                                          />
+        <converters:SquareStatusConverter x:Key="squareStatusToImage" 
+                                          
+                                          Covered="Plain.png"
+                                          Mine="mine.png"
+                                          Flagged="flag.png"
+                                          />
+        <converters:GameStatusConverter x:Key="gameStatusToText" 
+                                          Won="Won"
+                                          Lost="Lost"
+                                          InProgress=""
+                                          />
+        <converters:SquareStatusVisibilityConverter x:Key="squareStatusVisibility" />
+
+
+    </Page.Resources>
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid HorizontalAlignment="Stretch" Background="LightGray">
+                <StackPanel Orientation="Horizontal"  Grid.Row="0" HorizontalAlignment="Center">
+                    <TextBlock Margin="5 10 0 0" Width="30" Text="{Binding Board.Rows[0].Squares[0].Uncover.game.Value.Status, Converter={StaticResource gameStatusToText}}"></TextBlock>
+                    <Button Content="Restart" Margin="5 10 0 10" Click="NewGame_Click"/>
+                    <Button Click="button_click" Margin="10 10 0 10" Content="Settings"></Button>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+        <ItemsControl ItemsSource="{Binding Board.Rows}" Margin="0 45 0 0">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <ItemsControl  ItemsSource="{Binding Squares}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button  Width="32" Height="32" Background="{Binding Square.Value.Status, Converter={StaticResource squareStatusToEllipseFill}}" >
+                                    <Button.Content>
+                                        <Grid >
+                                            <Image Source="{Binding Square.Value.Status, Converter={StaticResource squareStatusToImage}}"></Image>
+                                            <TextBlock Text="{Binding Square.Value.NeighboringMineCount}" Visibility="{Binding Square.Value, Converter={StaticResource squareStatusVisibility}}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Button.Content>
+                                    <Button.InputBindings>
+                                        <MouseBinding Gesture="RightClick" Command="{Binding Path=Flag}" />
+                                        <MouseBinding Gesture="LeftClick" Command="{Binding Path=Uncover}" />
+                                    </Button.InputBindings>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+        
+
+    </Grid>
+</Page>

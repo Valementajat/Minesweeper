@@ -8,67 +8,10 @@
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="450" MinWidth="400" Height="600" Width="500">
 
-    <Window.Resources>
-        <converters:SquareStatusConverter x:Key="squareStatusToEllipseFill" 
-                                          Uncovered="#A0A0A0"
-                                          Covered="LightGray"
-                                          Mine="Black"
-                                          Flagged="Orange"
-                                          />
-        <converters:SquareStatusVisibilityConverter x:Key="squareStatusVisibility" />
-
-
-    </Window.Resources>
+    
     <Viewbox Stretch="Uniform" >
+        <Frame x:Name="frame" Content="Frame" ScrollViewer.VerticalScrollBarVisibility="Visible" NavigationUIVisibility="Hidden"></Frame>
 
-
-        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Background="LightGray" Grid.Row="0" HorizontalAlignment="Stretch">
-                    
-                    <TextBlock Text="Title" Foreground="White" FontSize="20" Margin="10"/>
-                    <Button Content="Button" Margin="10"  Click="NewGame_Click"/>
-                </StackPanel>
-                <Grid Grid.Row="1">
-
-                </Grid>
-            </Grid>
-            <ItemsControl ItemsSource="{Binding Board.Rows}" Margin="0 45 0 0">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <ItemsControl  ItemsSource="{Binding Squares}">
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate>
-                                    <Button  Width="32" Height="32" Background="{Binding Square.Value.Status, Converter={StaticResource squareStatusToEllipseFill}}" >
-                                        <Button.Content>
-                                            <Grid >
-                                                <Image Source="images/Flag.png" Width="16" Height="16" />
-                                                <TextBlock Text="{Binding Square.Value.NeighboringMineCount}" Visibility="{Binding Square.Value, Converter={StaticResource squareStatusVisibility}}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Grid>
-                                        </Button.Content>
-                                        <Button.InputBindings>
-                                            <MouseBinding Gesture="RightClick" Command="{Binding Path=Flag}" />
-                                            <MouseBinding Gesture="LeftClick" Command="{Binding Path=Uncover}" />
-                                        </Button.InputBindings>
-                                    </Button>
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Horizontal"/>
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-
-            </ItemsControl>
-
-        </Grid>
     </Viewbox>
 </Window>
 

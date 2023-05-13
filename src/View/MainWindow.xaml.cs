@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using View;
 using viewModel;
 
 namespace view
@@ -27,41 +28,13 @@ namespace view
         public MainWindow()
         {
             InitializeComponent();
-
-            var game = IGame.CreateRandom(10, 0.1);
-            /*var game = IGame.Parse(new List<string> {
-              "...*.",
-              ".*.*.",
-              ".....",
-              "...*.",
-              "**...",
-            });*/
-          
-            var GameViewModel = new GameViewModel(game);
-
-            this.DataContext = GameViewModel;
-
+            Loaded += MyWindow_Loaded;
         }
 
-        
-
-        private void NewGame_Click(object sender, RoutedEventArgs e)
+        private void MyWindow_Loaded(object sender, RoutedEventArgs e)
         {
-           
-            InitializeComponent();
 
-            var game = IGame.CreateRandom(10, 0.1);
-            /*var game = IGame.Parse(new List<string> {
-              "...*.",
-              ".*.*.",
-              ".....",
-              "...*.",
-              "**...",
-            });*/
-
-            var GameViewModel = new GameViewModel(game);
-
-            this.DataContext = GameViewModel;
+            frame.NavigationService.Navigate(new SettingsPage());
         }
     }
 
