@@ -17,9 +17,16 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <TextBlock x:Name="BoardSize" Text="{Binding SliderValue, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}"/>
-            <Slider x:Name="BoardSizeSlider" Value="{Binding SliderValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" Minimum="{Binding MinimumBoardSize}" Maximum="{Binding MaximumBoardSize}" Margin="0,14,0,10" Grid.RowSpan="4" ValueChanged="Slider_ValueChanged"/>
-            <CheckBox x:Name="EnableFloodingCheckBox" Grid.Row="3" Content="Enable Flooding"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="0 0 5 0">Board Size: </TextBlock>
+                <TextBlock Grid.Column="1" x:Name="BoardSize" Text="{Binding SliderValue, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" />
+            </Grid>
+            <Slider x:Name="BoardSizeSlider" Value="{Binding SliderValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" Minimum="{Binding MinimumBoardSize}" Maximum="{Binding MaximumBoardSize}" Margin="0,15,0,10" Grid.RowSpan="4" ValueChanged="Slider_ValueChanged"/>
+            <CheckBox x:Name="EnableFloodingCheckBox" Grid.Row="3" Content="Enable Flooding" Margin="0 20 0 5"/>
             <Button Grid.Row="4" Content="Start New Game" Click="button_Click"/>
         </Grid>
     </Grid>
