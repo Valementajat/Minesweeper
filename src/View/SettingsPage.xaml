@@ -23,9 +23,26 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Margin="0 0 5 0">Board Size: </TextBlock>
-                <TextBlock Grid.Column="1" x:Name="BoardSize" Text="{Binding SliderValue, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" />
+                <TextBlock Grid.Column="1" x:Name="BoardSize" Text="{Binding SizeSliderValue, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" />
             </Grid>
-            <Slider x:Name="BoardSizeSlider" Value="{Binding SliderValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" Minimum="{Binding MinimumBoardSize}" Maximum="{Binding MaximumBoardSize}" Margin="0,15,0,10" Grid.RowSpan="4" ValueChanged="Slider_ValueChanged"/>
+            <Slider x:Name="BoardSizeSlider" Value="{Binding SizeSliderValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" Minimum="{Binding MinimumBoardSize}" Maximum="{Binding MaximumBoardSize}" Margin="0,15,0,50" Grid.RowSpan="4" ValueChanged="SizeSliderValue_ValueChanged"/>
+
+            <Grid  Margin="0,35,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Margin="0 0 5 0">Mine probability:</TextBlock>
+                <TextBlock Grid.Column="1" x:Name="Probability">
+                    <TextBlock.Text>
+                        <Binding Path="ProbablitySliderValue"
+                 RelativeSource="{RelativeSource AncestorType=local:SettingsPage}"
+                 StringFormat="{}{0:F2}" />
+                    </TextBlock.Text></TextBlock>
+            </Grid>
+            
+            <Slider x:Name="MineProbabilitySlider" Value="{Binding ProbablitySliderValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" Minimum="0.1" Maximum="0.7" Margin="0,55,0,10" Grid.RowSpan="4" ValueChanged="ProbablitySliderValue_ValueChanged"/>
+
             <CheckBox x:Name="EnableFloodingCheckBox" Grid.Row="3" Content="Enable Flooding" Margin="0 20 0 5"/>
             <Button Grid.Row="4" Content="Start New Game" Click="button_Click"/>
         </Grid>

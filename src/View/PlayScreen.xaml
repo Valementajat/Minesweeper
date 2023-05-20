@@ -10,29 +10,43 @@
       Title="Page1">
 
     <Page.Resources>
-        <converters:SquareStatusConverter x:Key="squareStatusToEllipseFill" 
-                                          Uncovered="#A0A0A0"
-                                          Covered="Transparent"
-                                          Mine="Transparent"
-                                          Flagged="Transparent"
-                                          />
+        
         <converters:SquareStatusConverter x:Key="squareStatusToImage" 
-                                          
+                                          Uncovered="uncovered.png"
                                           Covered="Plain.png"
                                           Mine="mine.png"
                                           Flagged="flag.png"
                                           />
+        <converters:GameLostMineConverter x:Key="GameLostMine" 
+                                          Mine="mine.png"
+                                          NotMine="uncovered.png"
+                                          />
+
         <converters:GameStatusConverter x:Key="gameStatusToText" 
                                           Won="Won"
                                           Lost="Lost"
                                           InProgress=""
                                           />
+        <converters:GameProgressConverter x:Key="GameProgress"
+                                          Won="Visible"
+                                          Lost="Visible"
+                                          InProgress="Hidden" />
+
+        <converters:GameProgressConverter2 x:Key="GameProgress2" 
+                                          Won="Hidden"
+                                          Lost="Hidden"
+                                          InProgress="Visible"
+                                        />
+        <converters:GameProgressConverter3 x:Key="GameProgress3" />
+
         <converters:SquareStatusVisibilityConverter x:Key="squareStatusVisibility" />
 
-
-    </Page.Resources>
+        <converters:MineCountColorConvertor x:Key="NeighboringMineCountColor" />
+        
+    </Page.Resources> 
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+        
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -41,6 +55,7 @@
             <Grid HorizontalAlignment="Stretch" Background="LightGray">
                 <StackPanel Orientation="Horizontal"  Grid.Row="0" HorizontalAlignment="Center">
                     <TextBlock Margin="5 10 0 0" Width="30" Text="{Binding Board.Rows[0].Squares[0].Uncover.game.Value.Status, Converter={StaticResource gameStatusToText}}"></TextBlock>
+                    <TextBlock x:Name="TimerTextBlock" Grid.Row="0" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Center" />
                     <Button Content="Restart" Margin="5 10 0 10" Click="NewGame_Click"/>
                     <Button Click="button_click" Margin="10 10 0 10" Content="Settings"></Button>
                 </StackPanel>
@@ -53,11 +68,21 @@
                     <ItemsControl  ItemsSource="{Binding Squares}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button  Width="32" Height="32" Background="{Binding Square.Value.Status, Converter={StaticResource squareStatusToEllipseFill}}" >
+                                <Button  Width="32" Height="32" >
                                     <Button.Content>
                                         <Grid >
-                                            <Image Source="{Binding Square.Value.Status, Converter={StaticResource squareStatusToImage}}"></Image>
-                                            <TextBlock Text="{Binding Square.Value.NeighboringMineCount}" Visibility="{Binding Square.Value, Converter={StaticResource squareStatusVisibility}}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <Image Source="{Binding RevealMineOnGameEnd.Value, Converter={StaticResource GameLostMine}}" Visibility="{Binding Uncover.game.Value.Status, Converter={StaticResource GameProgress}}" />
+                                            <Image Source="{Binding Square.Value.Status, Converter={StaticResource squareStatusToImage}}" Visibility="{Binding Uncover.game.Value.Status, Converter={StaticResource GameProgress2}}"></Image>
+                                            <TextBlock Text="{Binding Square.Value.NeighboringMineCount}"  Visibility="{Binding Square.Value, Converter={StaticResource squareStatusVisibility}}" Foreground="{Binding Square.Value.NeighboringMineCount, Converter={StaticResource NeighboringMineCountColor }}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            <TextBlock Text="{Binding Square.Value.NeighboringMineCount}" Foreground="{Binding Square.Value.NeighboringMineCount, Converter={StaticResource NeighboringMineCountColor }}"   HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock.Visibility>
+                                                    <MultiBinding Converter="{StaticResource GameProgress3}">
+                                                        <Binding Path="Uncover.game.Value.Status" />
+                                                        <Binding Path="Square.Value.NeighboringMineCount" />
+                                                        <Binding Path="RevealMineOnGameEnd.Value" />
+                                                    </MultiBinding>
+                                                </TextBlock.Visibility>
+                                            </TextBlock>
                                         </Grid>
                                     </Button.Content>
                                     <Button.InputBindings>

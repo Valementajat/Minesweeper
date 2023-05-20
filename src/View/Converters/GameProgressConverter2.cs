@@ -1,4 +1,6 @@
-﻿using Cells;
+﻿
+
+using Cells;
 using Model.MineSweeper;
 using System;
 using System.Collections.Generic;
@@ -11,16 +13,14 @@ using System.Windows.Data;
 
 namespace View.Converters
 {
-    class GameStatusConverter : IValueConverter
+    class GameProgressConverter2 : IValueConverter
     {
         public object InProgress { get; set; }
         public object Won { get; set; }
         public object Lost { get; set; }
 
-
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-
             var status = (GameStatus)value;
 
             switch (status)

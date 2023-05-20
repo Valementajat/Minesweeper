@@ -16,7 +16,7 @@ namespace viewModel
        
         public IEnumerable<RowViewModel> Rows { get; }
 
-        public GameBoardViewModel(ICell<IGame> game)
+        public GameBoardViewModel(ICell<IGame> game, bool flooding, double probability)
         {
 
             this.GameBoard = game.Derive(g => g.Board);
@@ -28,7 +28,7 @@ namespace viewModel
 
          for (int i = 0; i < Height; i++)
             {
-                RowViewModel rowViewModel = new(Row(GameBoard, game, i));
+                RowViewModel rowViewModel = new(Row(GameBoard, game, i, flooding, probability));
 
                 RowsList.Add(rowViewModel);
             }
@@ -38,7 +38,7 @@ namespace viewModel
         }
 
 
-        IEnumerable<SquareViewModel> Row(ICell<IGameBoard> board, ICell<IGame> game, int row)
+        IEnumerable<SquareViewModel> Row(ICell<IGameBoard> board, ICell<IGame> game, int row, bool flooding, double probability)
         {
             int width = GameBoard.Derive(g => g.Width).Value;
             var RowList = new List<SquareViewModel>(width);
@@ -46,7 +46,7 @@ namespace viewModel
             for (int i = 0; i < width; i++)
             {
                 var position = new Vector2D(i, row);
-                RowList.Add(new SquareViewModel(game, position));
+                RowList.Add(new SquareViewModel(game, position, flooding, probability));
             }
 
             return RowList;

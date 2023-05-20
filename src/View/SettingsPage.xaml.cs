@@ -1,5 +1,4 @@
-﻿using Model.MineSweeper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -15,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using viewModel;
 
 namespace View
 {
@@ -23,24 +23,42 @@ namespace View
     /// </summary>
     public partial class SettingsPage : Page, INotifyPropertyChanged
     {
-        private int sliderValue;
-        public int SliderValue
-        {
-            get { return sliderValue; }
+        private int sizeSliderValue;
+        public int SizeSliderValue
+         {
+            get { return sizeSliderValue; }
             set
             {
-                if (sliderValue != value)
+                if (sizeSliderValue != value)
                 {
-                    sliderValue = value;
-                    OnPropertyChanged("SliderValue");
+                    sizeSliderValue = value;
+                    OnPropertyChanged("SizeSliderValue");
                 }
             }
         }
 
+        private double probablitySliderValue;
+        public double ProbablitySliderValue
+        {
+            get { return probablitySliderValue; }
+            set
+            {
+                if (probablitySliderValue != value)
+                {
+                    probablitySliderValue = value;
+                    OnPropertyChanged("ProbablitySliderValue");
+                }
+            }
+        }
+
+
+        private GameViewModel gameViewModel;
         public SettingsPage()
         {
+            
             InitializeComponent();
-            DataContext = new SettingsViewModel();
+            gameViewModel = new GameViewModel(5, 0.1, true);
+            DataContext = new SettingsViewModel(gameViewModel);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -53,19 +71,32 @@ namespace View
         private void button_Click(object sender, RoutedEventArgs e)
         {
             bool isFloodingEnabled = (bool)EnableFloodingCheckBox.IsChecked;
-            this.NavigationService.Navigate(new Page1(SliderValue, isFloodingEnabled));
+            this.NavigationService.Navigate(new Page1(SizeSliderValue, isFloodingEnabled, ProbablitySliderValue));
         }
 
-        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        private void SizeSliderValue_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Slider slider = (Slider)sender;
-            SliderValue = (int)Math.Round(slider.Value);
+            SizeSliderValue = (int)Math.Round(slider.Value);
+        }
+
+        private void ProbablitySliderValue_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Slider slider = (Slider)sender;
+            ProbablitySliderValue = Math.Round(slider.Value, 2);
         }
 
         public class SettingsViewModel
         {
-            public int MinimumBoardSize { get; } = IGame.MinimumBoardSize;
-            public int MaximumBoardSize { get; } = IGame.MaximumBoardSize;
+            private GameViewModel gameViewModel;
+
+            public int MinimumBoardSize => gameViewModel.MinimumBoardSize;
+            public int MaximumBoardSize => gameViewModel.MaximumBoardSize;
+
+            public SettingsViewModel(GameViewModel gameViewModel)
+            {
+                this.gameViewModel = gameViewModel;
+            }
         }
     }
 }

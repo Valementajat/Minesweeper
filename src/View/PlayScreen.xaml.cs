@@ -1,5 +1,4 @@
-﻿using Model.MineSweeper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,14 +23,16 @@ namespace View
     {
         int boardSize;
         bool flooding = false;
+        double probability;
 
-        public Page1(int boardSize, bool flooding)
+        public Page1(int boardSize, bool flooding, double probability)
         {
             this.boardSize = boardSize;
             this.flooding = flooding;
+            this.probability = probability;
 
             InitializeComponent();
-            var game = IGame.CreateRandom(boardSize, 0.1, flooding);
+            
             /*var game = IGame.Parse(new List<string> {
               "...*.",
               ".*.*.",
@@ -39,20 +40,17 @@ namespace View
               "...*.",
               "**...",
             });*/
-
-            this.DataContext = new GameViewModel(game);
+            this.DataContext = new GameViewModel(boardSize, probability, flooding);
 
         }
 
-
+       
 
         private void NewGame_Click(object sender, RoutedEventArgs e)
         {
 
             InitializeComponent();
-
-            var game = IGame.CreateRandom(boardSize, 0.1, flooding);
-            var GameViewModel = new GameViewModel(game);
+            var GameViewModel = new GameViewModel(boardSize, probability, flooding);
 
             this.DataContext = GameViewModel;
 

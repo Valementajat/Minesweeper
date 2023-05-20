@@ -11,15 +11,24 @@ namespace viewModel
     {
         
         public GameBoardViewModel Board { get; }
-        
+        public int MinimumBoardSize { get; }
+        public int MaximumBoardSize { get; }
 
-        public GameViewModel(IGame game)
+        public GameViewModel(int boardSize, double probability, bool flooding)
         {
-            
+            var game = IGame.CreateRandom(boardSize, probability, flooding);
+            /*var game = IGame.Parse(new List<string> {
+              "...*.",
+              ".*.*.",
+              ".....",
+              "...*.",
+              "**...",
+            });*/
             ICell<IGame> currentGame = Cell.Create(game);
             
-
-            this.Board = new GameBoardViewModel(currentGame);
+            this.Board = new GameBoardViewModel(currentGame, flooding, probability);
+            this.MinimumBoardSize = IGame.MinimumBoardSize;
+            this.MaximumBoardSize = IGame.MaximumBoardSize;
         }
 
        
