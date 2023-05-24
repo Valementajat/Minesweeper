@@ -93,6 +93,21 @@ namespace View
             public int MinimumBoardSize => gameViewModel.MinimumBoardSize;
             public int MaximumBoardSize => gameViewModel.MaximumBoardSize;
 
+            public double MinimumProbability { get
+                {
+                    return 0.1;
+                }
+            }
+
+            public double MaximumProbability
+            {
+                get
+                {
+                    return 0.7;
+                }
+            }
+
+
             public SettingsViewModel(GameViewModel gameViewModel)
             {
                 this.gameViewModel = gameViewModel;

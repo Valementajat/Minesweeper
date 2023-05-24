@@ -40,8 +40,8 @@
                  StringFormat="{}{0:F2}" />
                     </TextBlock.Text></TextBlock>
             </Grid>
-            
-            <Slider x:Name="MineProbabilitySlider" Value="{Binding ProbablitySliderValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" Minimum="0.1" Maximum="0.7" Margin="0,55,0,10" Grid.RowSpan="4" ValueChanged="ProbablitySliderValue_ValueChanged"/>
+
+            <Slider x:Name="MineProbabilitySlider" Value="{Binding ProbablitySliderValue, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=local:SettingsPage}}" Minimum="{Binding MinimumProbability}" Maximum="{Binding MaximumProbability}" Margin="0,55,0,10" Grid.RowSpan="4" ValueChanged="ProbablitySliderValue_ValueChanged"/>
 
             <CheckBox x:Name="EnableFloodingCheckBox" Grid.Row="3" Content="Enable Flooding" Margin="0 20 0 5"/>
             <Button Grid.Row="4" Content="Start New Game" Click="button_Click"/>
