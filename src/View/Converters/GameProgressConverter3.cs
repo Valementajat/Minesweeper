@@ -20,6 +20,8 @@ namespace View.Converters
         {
             var status = (GameStatus)values[0];
             var mineCount = (int)values[1];
+
+                
             if ((bool)values[2])
             {
                 return Visibility.Hidden;

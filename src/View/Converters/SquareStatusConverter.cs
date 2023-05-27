@@ -23,9 +23,8 @@ namespace View.Converters
 
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            SquareStatus status = (SquareStatus)value;
              
-            switch (status)
+            switch (value)
             {
                 case SquareStatus.Flagged:
                     return Flagged;

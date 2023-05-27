@@ -1,12 +1,11 @@
 {
-    "first-name": "TODO",
-    "last-name": "TODO",
-    "github-url": "https://github.com/ucll-vgo2122/minesweeper-TODO",
-    "framework": "WPF",
-    "extensions": [
-        "TODO1",
-        "TODO2",
-        "TODO3",
-        "..."
-    ]
+  "first-name": "Johannes",
+  "last-name": "Takamäki",
+  "github-url": "https://github.com/Valementajat/Minesweeper",
+  "framework": "WPF",
+  "extensions": [
+    "Different font color depending of amount of neighboring mines",
+    "Have the first uncovered square never contain a mine",
+    "Custom mine probability"
+  ]
 }
